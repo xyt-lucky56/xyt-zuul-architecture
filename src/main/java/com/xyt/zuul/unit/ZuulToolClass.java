@@ -20,17 +20,31 @@ public class ZuulToolClass {
         if (myOrigin == null || myOrigin.length() == 0) {
             return false;
         }
-        List<String> list = new ArrayList<>();
-        list.add("http://localhost:63342");
-        list.add("http://www.lh.com");
-        list.add("http://cp.lh.com:8080");
-        list.add("http://cp.lh.com");
-        list.add("http://cj.lh.com");
-        list.add("http://wmj.lh.com");
+        String nowOrigin = myOrigin
+                .replace("https://", "")
+                .replace("http://", "");
+        String[] split = nowOrigin.split(":");
+        int length = split.length;
+        if (length > 1) {
+            String replaceContent = ":" + split[length - 1];
+            nowOrigin = nowOrigin.replace(replaceContent, "");
+        }
 
-        int i = list.indexOf(myOrigin);
-        boolean isValid = i > -1 ? true : false;
+        List<String> list = new ArrayList<>();
+        list.add("localhost");
+        list.add("www.lh.com");
+        list.add("cp.lh.com");
+        list.add("cj.lh.com");
+        list.add("wmj.lh.com");
+        list.add("lj.lh.com");
+        list.add("www.ll.com");
+        list.add("wmj.ll.com");
+        list.add("lj.ll.com");
+        list.add("cp.ll.com");
+
+        int i = list.indexOf(nowOrigin);
         list.clear();
+        boolean isValid = i > -1 ? true : false;
         return isValid;
     }
 }
